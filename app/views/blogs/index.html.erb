@@ -1,0 +1,61 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Blog</a></li>
+    <li class="breadcrumb-item active" aria-current="page">list</li>
+  </ol>
+</nav>
+
+<table class="table table-bordered table-striped" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Category</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  <% @blogs.each do |c| %>
+    <tr>
+      <th scope="row"><%= c.id%></th>
+      <td><%= c.title %></td>
+      <td><%= c.description %></td>
+      <td><%= c.category.name  %></td>
+      <td><%= c.tags.pluck(:name).join(' - ')  %></td>
+      <td><%= c.status == 0 ? 'Pending' : 'Published' %></td>
+      <td>
+          <%= link_to 'Edit', {:action => 'edit', :id => c.id}, class: "btn btn-primary btn-sm" %>&nbsp;&nbsp;&nbsp;
+          <%= button_to 'Delete', blog_path(c), method: :delete, class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to "New Blog", new_blog_path, class: 'btn btn-primary' %>
+
+
+
+<!--
+<table id="users-datatable" data-source="<%= blogs_path(format: :json) %>">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+-->
+
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>

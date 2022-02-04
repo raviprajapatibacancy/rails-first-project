@@ -1,0 +1,38 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Physicians</a></li>
+    <li class="breadcrumb-item active" aria-current="page">list</li>
+  </ol>
+</nav>
+
+<table class="table table-bordered table-striped" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+  <% @phsicians.each do |c| %>
+    <tr>
+      <th scope="row"><%= c.id%></th>
+      <td><%= c.name %></td>
+      <td><%= c.email %></td>
+      <td>
+          <%= link_to 'Edit', {:action => 'edit', :id => c.id}, class: "btn btn-primary btn-sm" %>&nbsp;&nbsp;&nbsp;
+          <%= button_to 'Delete', phsician_path(c), method: :delete, class: "btn btn-danger btn-sm" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<script>
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>

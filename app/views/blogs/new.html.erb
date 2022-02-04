@@ -1,0 +1,53 @@
+<h3>Add Blog Detail</h3><br>
+
+<div class="container-fluid">
+    <% if !@blog.errors.empty? %>
+    <div class = "alert alert-error"> 
+        <ul>
+            <% @blog.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
+  <%= form_with(model: Blog, html: { multipart: true }) do |form| %>
+    <!-- Text input -->
+    <div class="form-outline mb-4">
+        <%= form.text_field :title, placeholder: "Title", class: "form-control" %>
+    </div>
+
+    <!-- Message input -->
+    <div class="form-outline mb-4">
+        <%= form.text_area :description, placeholder: "Description", class: "form-control" %>
+    </div>
+
+    <div class="form-outline mb-4">
+        <%= collection_select(:blog, :category_id, Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %>
+    </div>
+
+    <div class="form-outline mb-4">
+        <%= radio_button("blog", "status", "0") %> Pending
+        <%= radio_button("blog", "status", "1") %> Published
+    </div>
+
+    <div class="form-outline mb-4">
+        <%= form.file_field :attachment %>
+    </div>
+
+    <div class="form-outline mb-4">
+        <%= form.select :tag_ids, Tag.all.collect {|t| [t.name, t.id]}, { :prompt => "Please Select Tags"}, { :multiple => true, :size => 5, class: "form-control" } %>
+    </div>
+    <br>
+    <!--
+    <% Tag.all.collect.each do |invoice| %>
+         <%= form.check_box :tag_ids, {multiple: true}, invoice.id, '' %><%= invoice.name %>
+    <% end %>
+    #just another option for checkboxes
+    <% Tag.all.collect.each do |invoice| %>
+         <%= check_box_tag "tag_ids[]", invoice.id %>&nbsp;&nbsp;&nbsp;<%= invoice.name %>
+    <% end %>
+    -->
+    <!-- Submit button -->
+    <%= submit_tag "Submit", class: "btn btn-primary btn-block mb-4" %>
+   <% end %>
+</div>

@@ -1,0 +1,31 @@
+<h3>Edit Appointment</h3><br>
+
+<div class="container-fluid">
+  
+  <%= form_with(model: Appointment, html: { multipart: true }) do |form| %>
+
+    <div class="form-outline mb-4">
+        <%= form.date_field :appointment_date, placeholder: "Title", class: "form-control" %>
+    </div>
+
+    <div class="form-outline mb-4">
+        <%= collection_select(:appointment, :patient_id, Patient.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %>
+    </div>
+
+   <div class="form-outline mb-4">
+        <%= collection_select(:appointment, :phsician_id, Phsician.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %>
+    </div>
+    <br>
+    <!--
+    <% Tag.all.collect.each do |invoice| %>
+         <%= form.check_box :tag_ids, {multiple: true}, invoice.id, '' %><%= invoice.name %>
+    <% end %>
+    #just another option for checkboxes
+    <% Tag.all.collect.each do |invoice| %>
+         <%= check_box_tag "tag_ids[]", invoice.id %>&nbsp;&nbsp;&nbsp;<%= invoice.name %>
+    <% end %>
+    -->
+    <!-- Submit button -->
+    <%= submit_tag "Submit", class: "btn btn-primary btn-block mb-4" %>
+   <% end %>
+</div>

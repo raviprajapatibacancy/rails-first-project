@@ -1,0 +1,59 @@
+<div class="container signup-page">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Sign Up</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-google-plus-square"></i></span>
+					<span><i class="fab fa-twitter-square"></i></span>
+				</div>
+			</div>
+			<div class="card-body">
+
+				<% if @user.errors.any? %>
+					<article class="message is-danger">
+						<%# <div class="message-header">
+							<p>Danger</p>
+							<button class="delete" aria-label="delete"></button>
+						</div> %>
+						<div class="message-body">
+							<ul class="errors">
+								<% @user.errors.full_messages.each do |msg| %>
+									<li>
+										<%= msg %>
+									</li>
+								<% end %>
+							</ul>
+						</div>
+					</article>
+				<% end %>
+      
+				<%= form_with(model: @user, local: true) do |f| %>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+						</div>
+						<%= f.text_field :username, class: "form-control",  placeholder: "Username" %>
+						
+					</div>
+         			 <br>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+						</div>
+						<%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+					</div>
+         			 <br>
+					<div class="form-group">
+           				 <%= f.submit 'Register', :class => 'btn float-right login_btn' %>
+					</div>
+				<% end %>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Already have account ?<%= link_to "Sign in", "/login" %>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>
